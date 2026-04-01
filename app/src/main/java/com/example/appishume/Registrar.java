@@ -52,8 +52,7 @@ public class Registrar extends AppCompatActivity {
     loadUI();
     acceso = new DBAccess(context);
 
-    // Al tocar el campo fecha abre el selector de calendario
-    edtFechaEvento.setFocusable(false);
+    git commit -m "Primer commit: Estructura CRUD y módulo Calendario"    edtFechaEvento.setFocusable(false);
     edtFechaEvento.setClickable(true);
     edtFechaEvento.setOnClickListener(v -> abrirDatePicker());
 
