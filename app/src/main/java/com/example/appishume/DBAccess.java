@@ -221,4 +221,27 @@ public class DBAccess extends SQLiteOpenHelper {
     db.close();
     return evento;
   }
+
+  public ArrayList<Evento> listarEventosPorFecha(String fecha) {
+    SQLiteDatabase db = getReadableDatabase();
+    ArrayList<Evento> lista = new ArrayList<>();
+
+    Cursor cursor = db.query("eventos", null,
+      "fecha_evento=?", new String[]{fecha}, null, null, null);
+
+    while (cursor.moveToNext()) {
+      Evento evento = new Evento();
+      evento.setIdEvento(cursor.getInt(0));
+      evento.setTipoEvento(cursor.getString(1));
+      evento.setFechaEvento(cursor.getString(2));
+      evento.setUbicacion(cursor.getString(3));
+      evento.setDuracion(cursor.getInt(4));
+      evento.setIdCliente(cursor.getInt(5));
+      lista.add(evento);
+    }
+
+    cursor.close();
+    db.close();
+    return lista;
+  }
 }
