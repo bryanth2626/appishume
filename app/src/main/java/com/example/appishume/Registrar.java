@@ -1,5 +1,6 @@
 package com.example.appishume;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appishume.entidades.DBAccess;
 import com.example.appishume.entidades.Evento;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class Registrar extends AppCompatActivity {
 
@@ -48,7 +52,29 @@ public class Registrar extends AppCompatActivity {
     loadUI();
     acceso = new DBAccess(context);
 
+    // Al tocar el campo fecha abre el selector de calendario
+    edtFechaEvento.setFocusable(false);
+    edtFechaEvento.setClickable(true);
+    edtFechaEvento.setOnClickListener(v -> abrirDatePicker());
+
     btnGuardarEvento.setOnClickListener(v -> { registrar(); });
+  }
+
+  private void abrirDatePicker() {
+    Calendar calendario = Calendar.getInstance();
+    int anio = calendario.get(Calendar.YEAR);
+    int mes = calendario.get(Calendar.MONTH);
+    int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+    DatePickerDialog datePicker = new DatePickerDialog(context,
+      (view, anioSel, mesSel, diaSel) -> {
+        // Guardamos siempre en formato DD/MM/YYYY
+        String fechaFormateada = String.format(Locale.getDefault(),
+          "%02d/%02d/%04d", diaSel, mesSel + 1, anioSel);
+        edtFechaEvento.setText(fechaFormateada);
+      }, anio, mes, dia);
+
+    datePicker.show();
   }
 
   private void registrar() {

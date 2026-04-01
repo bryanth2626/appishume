@@ -59,8 +59,9 @@
 
   <EditText
     android:id="@+id/edtFechaEvento"
-    android:hint="Fecha del evento (DD/MM/YYYY)"
-    android:inputType="date"
+    android:hint="Fecha del evento"
+    android:focusable="false"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 
